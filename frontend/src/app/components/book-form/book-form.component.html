@@ -1,0 +1,81 @@
+<div class="book-form-container">
+    <!-- Form Header -->
+    <div class="form-header">
+        <h2>{{ isEditMode ? '✏️ Edit Book' : '➕ Add New Book' }}</h2>
+        <p class="text-muted">
+            {{ isEditMode ? 'Update the book details below' : 'Fill in the details to add a new book to your collection'
+            }}
+        </p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-banner" *ngIf="error">
+        <span class="error-icon">⚠️</span>
+        <span>{{ error }}</span>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <!-- Title Field -->
+        <div class="form-group">
+            <label for="title">Book Title *</label>
+            <input id="title" type="text" formControlName="title" placeholder="Enter book title"
+                [class.error]="hasError('title')" />
+            <div class="error-message" *ngIf="hasError('title')">
+                <span>⚠️</span>
+                {{ getErrorMessage('title') }}
+            </div>
+        </div>
+
+        <!-- Author Field -->
+        <div class="form-group">
+            <label for="author">Author *</label>
+            <input id="author" type="text" formControlName="author" placeholder="Enter author name"
+                [class.error]="hasError('author')" />
+            <div class="error-message" *ngIf="hasError('author')">
+                <span>⚠️</span>
+                {{ getErrorMessage('author') }}
+            </div>
+        </div>
+
+        <!-- ISBN Field -->
+        <div class="form-group">
+            <label for="isbn">ISBN *</label>
+            <input id="isbn" type="text" formControlName="isbn" placeholder="978-0-123456-78-9"
+                [class.error]="hasError('isbn')" />
+            <div class="error-message" *ngIf="hasError('isbn')">
+                <span>⚠️</span>
+                {{ getErrorMessage('isbn') }}
+            </div>
+            <small class="field-hint">International Standard Book Number (numbers and hyphens only)</small>
+        </div>
+
+        <!-- Publication Date Field -->
+        <div class="form-group">
+            <label for="publicationDate">Publication Date *</label>
+            <input id="publicationDate" type="date" formControlName="publicationDate"
+                [class.error]="hasError('publicationDate')" />
+            <div class="error-message" *ngIf="hasError('publicationDate')">
+                <span>⚠️</span>
+                {{ getErrorMessage('publicationDate') }}
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="loading">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-success" [disabled]="loading || bookForm.invalid">
+                <span *ngIf="loading" class="btn-spinner"></span>
+                <span *ngIf="!loading">{{ isEditMode ? '💾 Update Book' : '➕ Add Book' }}</span>
+                <span *ngIf="loading">{{ isEditMode ? 'Updating...' : 'Adding...' }}</span>
+            </button>
+        </div>
+    </form>
+
+    <!-- Form Footer -->
+    <div class="form-footer">
+        <small class="text-muted">* Required fields</small>
+    </div>
+</div>

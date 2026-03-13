@@ -1,0 +1,21 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+.vs/
+
+## Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## Build results
+dist/
+out/
+build/
+
+## OS files
+.DS_Store
+Thumbs.db
